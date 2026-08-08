@@ -265,6 +265,18 @@
       }
     }
 
+    @keyframes softFloat {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
     .hero-role {
       margin-top: var(--space-2);
       font-size: 18px;
@@ -321,6 +333,7 @@
       overflow: hidden;
       border: 1px solid var(--line);
       box-shadow: 0 24px 48px -24px rgba(20, 30, 25, 0.28);
+      animation: softFloat 6s ease-in-out infinite;
     }
 
     .hero-portrait img {
@@ -1391,14 +1404,14 @@
 
     .mobile-menu-panel {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      width: calc(100% - 32px);
-      max-width: 340px;
+      top: 12px;
+      right: 12px;
+      width: calc(100% - 24px);
+      max-width: 480px;
       background: rgba(255, 255, 255, 0.95);
       border: 1px solid rgba(220, 224, 219, 0.8);
-      border-radius: 24px;
-      padding: 24px;
+      border-radius: 20px;
+      padding: 16px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       transform: translateY(-20px) scale(0.95);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1412,7 +1425,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .mobile-menu-close {
@@ -1441,19 +1454,19 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
     .mobile-nav-link {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 14px 24px;
+      justify-content: center;
+      padding: 10px 18px;
       border-radius: 9999px;
       background: var(--bg-raised);
       border: 1px solid var(--line);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--ink);
       text-decoration: none;
       width: 100%;
@@ -1467,10 +1480,72 @@
       color: var(--accent);
       transform: translateY(-1px);
     }
+
+    /* ---------- BACKGROUND GLOW ORBS ---------- */
+    .bg-glow-container {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bg-glow-orb {
+      position: absolute;
+      width: clamp(300px, 40vw, 600px);
+      height: clamp(300px, 40vw, 600px);
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.08;
+      will-change: transform;
+    }
+
+    .orb-1 {
+      top: -10%;
+      left: -10%;
+      background: var(--accent);
+      animation: floatOrb1 25s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      bottom: -10%;
+      right: -10%;
+      background: var(--accent);
+      animation: floatOrb2 30s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatOrb1 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(80px, 60px) scale(1.1);
+      }
+      100% {
+        transform: translate(-40px, 80px) scale(0.95);
+      }
+    }
+
+    @keyframes floatOrb2 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(-100px, -80px) scale(1.15);
+      }
+      100% {
+        transform: translate(50px, -40px) scale(0.9);
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <div class="bg-glow-container" aria-hidden="true">
+    <div class="bg-glow-orb orb-1"></div>
+    <div class="bg-glow-orb orb-2"></div>
+  </div>
 
 
 
@@ -1502,58 +1577,11 @@
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
       </div>
       <ul class="mobile-menu-links">
-        <li>
-          <a href="#about" class="mobile-nav-link">
-            <span>about</span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="#work" class="mobile-nav-link">
-            <span>work</span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="#skills" class="mobile-nav-link">
-            <span>skills</span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="#contact" class="mobile-nav-link">
-            <span>contact</span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect width="20" height="16" x="2" y="4" rx="2" />
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="assets/jeeva-resume.pdf" target="_blank" download="Jeevanantham_M_Resume.pdf"
-            class="mobile-nav-link">
-            <span>resume</span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-          </a>
-        </li>
+        <li><a href="#about" class="mobile-nav-link">about</a></li>
+        <li><a href="#work" class="mobile-nav-link">work</a></li>
+        <li><a href="#skills" class="mobile-nav-link">skills</a></li>
+        <li><a href="#contact" class="mobile-nav-link">contact</a></li>
+        <li><a href="assets/jeeva-resume.pdf" target="_blank" download="Jeevanantham_M_Resume.pdf" class="mobile-nav-link">resume</a></li>
       </ul>
     </div>
   </div>
