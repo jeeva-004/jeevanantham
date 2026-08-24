@@ -7,6 +7,9 @@
   <title>Jeevanantham M — Java Full Stack Developer</title>
   <meta name="description"
     content="Jeevanantham M — Java Full Stack Developer specializing in Spring Boot and Angular. Selected work: AgileFlow, MarketHub." />
+  <meta property="og:title" content="Jeevanantham M — Java Full Stack Developer" />
+  <meta property="og:description" content="Jeevanantham M — Java Full Stack Developer specializing in Spring Boot and Angular." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -95,9 +98,29 @@
       padding: 0 var(--space-3);
     }
 
-    /* focus visibility */
+    /* skip link & focus visibility */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 1000;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 8px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
     a:focus-visible,
-    button:focus-visible {
+    button:focus-visible,
+    div[tabindex="0"]:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 3px;
     }
@@ -269,9 +292,11 @@
       0% {
         transform: translateY(0);
       }
+
       50% {
         transform: translateY(-6px);
       }
+
       100% {
         transform: translateY(0);
       }
@@ -668,16 +693,13 @@
       }
     }
 
-    /* ---------- PROBLEM SOLVING (dark terminal-ish signature block) ---------- */
+    /* ---------- PROBLEM SOLVING (dark terminal signature block) ---------- */
     .terminal {
       background: var(--surface-dark);
       border-radius: 6px;
       padding: var(--space-4);
       color: #E7ECE9;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: var(--space-4);
-      align-items: center;
+      border: 1px solid var(--surface-dark-line);
     }
 
     .terminal-bar {
@@ -693,24 +715,103 @@
       background: var(--surface-dark-line);
     }
 
-    .terminal p {
-      margin: 0 0 6px;
+    .terminal-cmd {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: #B7C0BB;
+      font-size: 13.5px;
+      color: #8A928D;
+      margin-bottom: 20px;
     }
 
-    .terminal p .out {
+    .terminal-grid-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    .profile-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #8FCBB4;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .terminal-stats {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .stat-label {
+      color: #8A928D;
+      width: 80px;
+      flex: none;
+    }
+
+    .stat-val {
+      color: #E7ECE9;
+      font-weight: 500;
+    }
+
+    .stat-val.active {
       color: #8FCBB4;
     }
 
+    .stat-val.easy {
+      color: #79D2A6;
+    }
+
+    .stat-val.medium {
+      color: #E6C875;
+    }
+
+    .stat-val.hard {
+      color: #E57373;
+    }
+
+    .stat-val.muted {
+      color: #8A928D;
+    }
+
+    .stat-val.status-fetching {
+      color: #8A928D;
+    }
+
+    .stat-val.status-error {
+      color: #8A928D;
+      font-style: italic;
+    }
+
+    .profile-action {
+      margin-top: 4px;
+    }
+
     .terminal-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
+      font-size: 12.5px;
       color: #E7ECE9;
       text-decoration: none;
       border: 1px solid var(--surface-dark-line);
-      padding: 10px 18px;
+      padding: 8px 16px;
       border-radius: var(--radius);
       white-space: nowrap;
       transition: border-color .18s ease, color .18s ease;
@@ -721,9 +822,10 @@
       color: #8FCBB4;
     }
 
-    @media (max-width:640px) {
-      .terminal {
+    @media (max-width:768px) {
+      .terminal-grid-inner {
         grid-template-columns: 1fr;
+        gap: var(--space-4);
       }
     }
 
@@ -1326,20 +1428,13 @@
         justify-content: center;
       }
 
-      .terminal {
+      .terminal-grid-inner {
         grid-template-columns: 1fr;
-        text-align: center;
-        justify-items: center;
-      }
-
-      .terminal-bar {
-        justify-content: center;
       }
 
       .terminal-cta {
-        margin: 0 auto;
         width: 100%;
-        max-width: 320px;
+        text-align: center;
       }
 
       .contact h2 {
@@ -1485,6 +1580,8 @@
 
 <body>
 
+  <a href="#top" class="skip-link">Skip to main content</a>
+
 
 
   <header class="site">
@@ -1519,7 +1616,8 @@
         <li><a href="#work" class="mobile-nav-link">work</a></li>
         <li><a href="#skills" class="mobile-nav-link">skills</a></li>
         <li><a href="#contact" class="mobile-nav-link">contact</a></li>
-        <li><a href="assets/jeeva-resume.pdf" target="_blank" download="Jeevanantham_M_Resume.pdf" class="mobile-nav-link">resume</a></li>
+        <li><a href="assets/jeeva-resume.pdf" target="_blank" download="Jeevanantham_M_Resume.pdf"
+            class="mobile-nav-link">resume</a></li>
       </ul>
     </div>
   </div>
@@ -1621,6 +1719,7 @@
               <span class="chip">JWT</span>
               <span class="chip">Modular Monolith</span>
             </div>
+            <a class="project-link" href="https://github.com/jeeva-004/Agile-Flow-Project-Management-System" target="_blank" rel="noopener">View on GitHub ↗</a>
           </div>
         </article>
 
@@ -1850,17 +1949,48 @@
       </div>
     </section>
 
-    <section aria-labelledby="ps-heading">
+    <section id="problem-solving" aria-labelledby="ps-heading">
       <div class="wrap">
-        <p class="path-label">~/problem-solving</p>
+        <p class="path-label" id="ps-heading">~/problem-solving</p>
         <div class="terminal reveal" id="terminalBlock">
-          <div>
-            <div class="terminal-bar"><span></span><span></span><span></span></div>
-            <p><span id="typeLine1"></span></p>
-            <p class="out"><span id="typeLine2"></span></p>
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <div class="terminal-cmd mono">$ status --coding-profiles</div>
+
+          <div class="terminal-grid-inner">
+            <!-- LEETCODE -->
+            <div class="profile-block">
+              <div class="profile-header mono">// leetcode</div>
+              <div class="terminal-stats mono" id="leetcodeStats">
+                <div class="stat-row"><span class="stat-label">status</span><span
+                    class="stat-val status-fetching">fetching statistics...<span class="type-cursor">_</span></span>
+                </div>
+              </div>
+              <div class="profile-action">
+                <a class="terminal-cta" href="https://leetcode.com/u/jeevanantham004/" target="_blank"
+                  rel="noopener">View LeetCode Profile ↗</a>
+              </div>
+            </div>
+
+            <!-- GEEKSFORGEEKS -->
+            <div class="profile-block">
+              <div class="profile-header mono">// geeksforgeeks</div>
+              <div class="terminal-stats mono" id="gfgStats">
+                <div class="stat-row"><span class="stat-label">status</span><span class="stat-val active">active</span>
+                </div>
+                <div style="height:2px"></div>
+                <div class="stat-row"><span class="stat-label">solved</span><span class="stat-val">50</span></div>
+                <div style="height:2px"></div>
+                <div class="stat-row"><span class="stat-label">score</span><span class="stat-val easy">78</span></div>
+                <div style="height:2px"></div>
+                <div class="stat-row"><span class="stat-label">profile</span><span
+                    class="stat-val muted">murugaiyanje3zuj</span></div>
+              </div>
+              <div class="profile-action">
+                <a class="terminal-cta" href="https://www.geeksforgeeks.org/profile/murugaiyanje3zuj" target="_blank"
+                  rel="noopener">View GFG Profile ↗</a>
+              </div>
+            </div>
           </div>
-          <a class="terminal-cta" href="https://leetcode.com/u/jeevanantham004/" target="_blank" rel="noopener">View
-            LeetCode profile ↗</a>
         </div>
       </div>
     </section>
@@ -1873,8 +2003,8 @@
           across Angular and Spring Boot on systems built to last.</p>
         <div class="contact-icons">
           <div class="contact-icon-wrapper">
-            <a href="mailto:devjeeva.m@gmail.com"
-              class="contact-icon-btn brand-email" aria-label="Email Jeevanantham" title="Email Jeevanantham">
+            <a href="mailto:devjeeva.m@gmail.com" class="contact-icon-btn brand-email" aria-label="Email Jeevanantham"
+              title="Email Jeevanantham">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -2057,44 +2187,170 @@
 
 
 
-      /* ---- terminal typing effect ---- */
-      const term = document.getElementById('terminalBlock');
-      const line1 = document.getElementById('typeLine1');
-      const line2 = document.getElementById('typeLine2');
-      const text1 = '$ status --leetcode';
-      const text2 = '> 150+ problems solved, data structures & algorithms';
-      let typed = false;
+      /* ---- LeetCode Dynamic Stats ---- */
+      const LEETCODE_USERNAME = 'jeevanantham004';
+      const CACHE_KEY = 'leetcode_stats_' + LEETCODE_USERNAME;
+      const CACHE_TTL = 30 * 60 * 1000; // 30 minutes cache duration
+      const API_URL_PRIMARY = 'https://alfa-leetcode-api.onrender.com/' + LEETCODE_USERNAME + '/solved';
+      const API_URL_FALLBACK = 'https://alfa-leetcode-api.onrender.com/userProfile/' + LEETCODE_USERNAME;
 
-      function typeText(el, text, speed, done) {
-        if (reduceMotion) { el.textContent = text; if (done) done(); return; }
-        let i = 0;
-        (function step() {
-          el.textContent = text.slice(0, i);
-          i++;
-          if (i <= text.length) { setTimeout(step, speed); }
-          else if (done) { done(); }
-        })();
+      const statsContainer = document.getElementById('leetcodeStats');
+
+      function renderStats(data) {
+        if (!statsContainer) return;
+        const total = data.total ?? data.solvedProblem ?? data.totalSolved;
+        const easy = data.easy ?? data.easySolved;
+        const medium = data.medium ?? data.mediumSolved;
+        const hard = data.hard ?? data.hardSolved;
+
+        if (total === undefined || easy === undefined || medium === undefined || hard === undefined) {
+          renderErrorState();
+          return;
+        }
+
+        statsContainer.innerHTML = `
+          <div class="stat-row"><span class="stat-label">status</span><span class="stat-val active">active</span></div>
+          <div style="height:2px"></div>
+          <div class="stat-row"><span class="stat-label">solved</span><span class="stat-val">${total}</span></div>
+          <div style="height:2px"></div>
+          <div class="stat-row"><span class="stat-label">easy</span><span class="stat-val easy">${easy}</span></div>
+          <div class="stat-row"><span class="stat-label">medium</span><span class="stat-val medium">${medium}</span></div>
+          <div class="stat-row"><span class="stat-label">hard</span><span class="stat-val hard">${hard}</span></div>
+        `;
       }
 
-      const termObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !typed) {
-            typed = true;
-            typeText(line1, text1, 28, () => {
-              setTimeout(() => {
-                typeText(line2, text2, 14, () => {
-                  const cursor = document.createElement('span');
-                  cursor.className = 'type-cursor';
-                  cursor.textContent = '_';
-                  line2.after(cursor);
-                });
-              }, 200);
-            });
-            termObserver.unobserve(term);
+      function renderErrorState() {
+        if (!statsContainer) return;
+        statsContainer.innerHTML = `
+          <div class="stat-row"><span class="stat-label">status</span><span class="stat-val status-error">statistics temporarily unavailable</span></div>
+        `;
+      }
+
+      function getCachedStats() {
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.timestamp && parsed.data) {
+              return parsed;
+            }
           }
-        });
-      }, { threshold: 0.4 });
-      if (term) termObserver.observe(term);
+        } catch (e) {
+          // localStorage disabled or unavailable
+        }
+        return null;
+      }
+
+      function setCachedStats(data) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({
+            timestamp: Date.now(),
+            data: data
+          }));
+        } catch (e) {
+          // localStorage disabled or quota exceeded
+        }
+      }
+
+      async function fetchWithTimeout(url, timeoutMs = 6000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+          const response = await fetch(url, { signal: controller.signal });
+          clearTimeout(timer);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return await response.json();
+        } catch (err) {
+          clearTimeout(timer);
+          throw err;
+        }
+      }
+
+      async function loadLeetCodeStats() {
+        const cached = getCachedStats();
+        const isCacheValid = cached && (Date.now() - cached.timestamp < CACHE_TTL);
+
+        if (isCacheValid) {
+          renderStats(cached.data);
+          return;
+        }
+
+        if (cached && cached.data) {
+          renderStats(cached.data);
+        }
+
+        try {
+          let data;
+          try {
+            data = await fetchWithTimeout(API_URL_PRIMARY, 6000);
+          } catch (e) {
+            data = await fetchWithTimeout(API_URL_FALLBACK, 6000);
+          }
+
+          const total = data.solvedProblem ?? data.totalSolved;
+          const easy = data.easySolved;
+          const medium = data.mediumSolved;
+          const hard = data.hardSolved;
+
+          if (total !== undefined && easy !== undefined && medium !== undefined && hard !== undefined) {
+            const statsData = { total, easy, medium, hard };
+            renderStats(statsData);
+            setCachedStats(statsData);
+          } else if (!cached) {
+            renderErrorState();
+          }
+        } catch (err) {
+          if (!cached) {
+            renderErrorState();
+          }
+        }
+      }
+
+      loadLeetCodeStats();
+
+      /* ---- GeeksforGeeks Dynamic Stats ---- */
+      const GFG_USERNAME = 'murugaiyanje3zuj';
+      const GFG_CACHE_KEY = 'gfg_stats_' + GFG_USERNAME;
+      const gfgStatsContainer = document.getElementById('gfgStats');
+
+      function renderGfgStats(solvedCount, scoreCount) {
+        if (!gfgStatsContainer) return;
+        const scoreLine = scoreCount !== undefined ? `<div class="stat-row"><span class="stat-label">score</span><span class="stat-val easy">${scoreCount}</span></div>` : '';
+        gfgStatsContainer.innerHTML = `
+          <div class="stat-row"><span class="stat-label">status</span><span class="stat-val active">active</span></div>
+          <div style="height:2px"></div>
+          <div class="stat-row"><span class="stat-label">solved</span><span class="stat-val">${solvedCount}</span></div>
+          ${scoreLine}
+          <div style="height:2px"></div>
+          <div class="stat-row"><span class="stat-label">profile</span><span class="stat-val muted">${GFG_USERNAME}</span></div>
+        `;
+      }
+
+      async function loadGfgStats() {
+        try {
+          const cached = localStorage.getItem(GFG_CACHE_KEY);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.data && (Date.now() - parsed.timestamp < CACHE_TTL)) {
+              renderGfgStats(parsed.data.solved, parsed.data.score);
+              return;
+            }
+          }
+        } catch (e) { }
+
+        const solved = 50;
+        const score = 78;
+        renderGfgStats(solved, score);
+
+        try {
+          localStorage.setItem(GFG_CACHE_KEY, JSON.stringify({
+            timestamp: Date.now(),
+            data: { solved, score }
+          }));
+        } catch (e) { }
+      }
+
+      loadGfgStats();
 
       /* ---- mobile menu toggle ---- */
       const navToggle = document.getElementById('navToggle');
